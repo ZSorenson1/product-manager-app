@@ -14,9 +14,16 @@ export default () => {
         .then(res=>setProducts(res.data)
         )}, [])
         
+        const addProduct = (product) =>{
+            axios.post('http://localhost:8000/api/products/new', 
+            product)
+        .then(res=>setProducts([...products,res.data]))
+        .catch(err=>console.log(err))
+        }
+        
     return (
         <div>
-            <ProductForm/>
+            <ProductForm initialTitle="" initialPrice="" initialDesc="" onSubmitProp={addProduct} />
             <hr/>
             <ProductList products={products} removeFromDom={removeFromDom}/>
         </div>
